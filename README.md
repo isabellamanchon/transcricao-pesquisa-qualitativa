@@ -1,7 +1,7 @@
 # Motor de IA para Análise de Debates Eleitorais em Tempo Real
 
 ## O Contexto do Código
-Este repositório contém o script original desenvolvido para o projeto **TMC - CISO (Painel Interativo de Análise Eleitoral)**. O objetivo foi criar um pipeline capaz de escutar um debate político ao vivo no YouTube, identificar quem estava falando e transcrever o discurso em tempo real.
+Este repositório contém o script original desenvolvido para o projeto[ **TMC - CISO (Painel Interativo de Análise Eleitoral)**]([url](https://ciso-espm.tmc.com.br/)). O objetivo foi criar um pipeline capaz de escutar um debate político ao vivo no YouTube, identificar quem estava falando e transcrever o discurso em tempo real.
 
 Esse mesmo motor e arquitetura (que processa fluxos contínuos de áudio e separa locutores) serviu como base tecnológica para os meus estudos de transcrição em pesquisas qualitativas (Submissão ABEP).
 
