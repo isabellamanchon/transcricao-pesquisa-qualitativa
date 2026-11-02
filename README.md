@@ -10,9 +10,9 @@ Notebook: `pipeline-transcrição.ipynb`
 Resultado: um debate de 2h processado em tempo real, no lugar de uma transcrição manual estimada em mais de 8h.
 
 ## Etapa 2 – Resumo com API de IA
-Notebook: `resumo-com-api.ipynb`
+Notebook: `resumo_com_API.ipynb`
 Lê a transcrição e usa a **API do Gemini** para devolver, por candidato: temas principais, propostas, números citados e perguntas sem resposta.
-- Exemplo de entrada: `transcricao_trecho.txt`
+- Exemplo de entrada: `transcricao_limpa.txt`
 - Exemplo de resultado: `resumo_debate.md`
 
 ## Como usar
