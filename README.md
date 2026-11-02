@@ -1,15 +1,21 @@
 # Motor de IA para Análise de Debates Eleitorais em Tempo Real
+Pipeline em duas etapas criado para o projeto **TMC – CISO (Painel Interativo de Análise Eleitoral)**: transcreve debates ao vivo, identifica quem fala e usa IA para resumir o que cada candidato disse.
+Painel publicado: https://ciso-espm.tmc.com.br/
 
-## O Contexto do Código
-Este repositório contém o script original desenvolvido para o projeto[ **TMC - CISO (Painel Interativo de Análise Eleitoral)**]([https://ciso-espm.tmc.com.br/]). O objetivo foi criar um pipeline capaz de escutar um debate político ao vivo no YouTube, identificar quem estava falando e transcrever o discurso em tempo real.
+## Etapa 1 – Captação e transcrição em tempo real
+Notebook: `pipeline-transcrição.ipynb`
+- **Captura de streaming:** `yt-dlp` e `ffmpeg` extraem o áudio de uma live do YouTube.
+- **Identificação de falantes:** `pyannote.audio` gera a "impressão digital" de cada voz e compara por similaridade de cosseno com um banco de vozes cadastradas.
+- **Transcrição:** `faster-whisper` (large-v3) em GPU, em blocos de 10 segundos, com horário e nome do falante.
+Resultado: um debate de 2h processado em tempo real, no lugar de uma transcrição manual estimada em mais de 8h.
 
-Esse mesmo motor e arquitetura (que processa fluxos contínuos de áudio e separa locutores) serviu como base tecnológica para os meus estudos de transcrição em pesquisas qualitativas (Submissão ABEP).
+## Etapa 2 – Resumo com API de IA
+Notebook: `resumo-com-api.ipynb`
+Lê a transcrição e usa a **API do Gemini** para devolver, por candidato: temas principais, propostas, números citados e perguntas sem resposta.
+- Exemplo de entrada: `transcricao_trecho.txt`
+- Exemplo de resultado: `resumo_debate.md`
 
-## Como Funciona a Arquitetura
-O sistema resolve o desafio de taguear múltiplas vozes em transmissões ao vivo de longa duração através das seguintes etapas integradas:
-- **Captura de Streaming:** Integração de `yt-dlp` e `ffmpeg` para extrair o fluxo de áudio de forma contínua diretamente de uma live do YouTube.
-- **Biometria de Voz (Diarização):** Uso do `pyannote.audio` para extrair embeddings vocais. O pipeline compara as vozes por similaridade de cosseno, tagueando automaticamente as falas de diferentes candidatos e mediadores com base em amostras de áudio cadastradas previamente.
-- **Transcrição e Estruturação:** Processamento em tempo real com o modelo `faster-whisper` (large-v3) rodando em GPU para transformar o áudio diarizado em dados textuais estruturados.
-
-## Execução
-O código foi estruturado no Google Colab para aproveitar a aceleração de hardware (NVIDIA T4). Ele processa a transmissão em chunks de 10 segundos
+## Como usar
+1. Rode a etapa 1 no Google Colab (GPU T4) para gerar a transcrição.
+2. Guarde a chave da API em `GEMINI_API_KEY`, no Secrets do Colab.
+3. Rode a etapa 2 apontando para o arquivo de transcrição.
